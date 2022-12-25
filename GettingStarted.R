@@ -56,3 +56,61 @@ data = read.table('C:/Users/NEXT/Desktop/Learning_R/Data/text.txt', header = TRU
 str(data)
 
 rm(list = ls())
+
+# Converting tabular data to row. 
+
+?UCBAdmissions
+str(UCBAdmissions)
+UCBAdmissions
+
+plot(UCBAdmissions)
+
+plot(margin.table(UCBAdmissions,1))
+margin.table(UCBAdmissions, 2)
+margin.table(UCBAdmissions, 3)
+margin.table(UCBAdmissions)
+
+admit.dept <-margin.table(UCBAdmissions, 3)
+str(admit.dept)
+barplot(admit.dept)
+
+admit.dept
+round(prop.table(admit.dept),2) # Proposition
+
+round(prop.table(admit.dept),2)*100 # Proposition
+
+
+admit1 <- as.data.frame.table(UCBAdmissions)
+
+admit2 <- lapply(admit1, function(x)rep(x, admit1$Freq))
+
+admit3 <- as.data.frame(admit2)
+
+admit4 <- admit3[, -4]
+
+
+x <- c(12,4,21,17,13,8)
+barplot(x)
+
+colors()
+barplot(x, col = "slategray3")
+barplot(x, col = colors()[234])
+
+# RGB Trippet
+col2rgb("navyblue")
+barplot(x, col = rgb(.54,.0,.0))
+barplot(x, col = rgb(145,111,222, max = 255))
+
+barplot(x, col="#FFEBCD")
+
+# PALETTES
+
+palette()
+barplot(x, col =1:6)
+barplot(x, col =rainbow(6))
+barplot(x, col =heat.colors(6))
+barplot(x, col =terrain.colors(6))
+barplot(x, col =topo.colors(6))
+barplot(x, col =cm.colors(6))
+
+palette("default")
