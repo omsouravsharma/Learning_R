@@ -114,3 +114,33 @@ barplot(x, col =topo.colors(6))
 barplot(x, col =cm.colors(6))
 
 palette("default")
+
+# install.packages("RColorBrewer")
+
+display.brewer.all()
+
+library(RColorBrewer)
+
+display.brewer.pal(8, "Accent")
+
+blues <- brewer.pal(6, "Blues")
+
+barplot(x, col = blues)
+
+
+x <- c(5,2,4,1,5)
+y <- c(5,2,4,1,5,3,10,1)
+z <- c(5,2,4,1,5,1,4,1,4,1,1)
+
+barplot(x, col = "lightcyan1")
+
+n <- 7
+x = c(rep(10,n))
+barplot(x, col = brewer.pal(n,"BuPu"))
+display.brewer.pal(n, "BuPu")
+
+
+n <- 9
+x = c(rep(10,n))
+barplot(x, col = brewer.pal(n,"PRGn"))
+display.brewer.pal(n, "PRGn")
