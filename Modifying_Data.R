@@ -136,3 +136,5 @@ boxplot(x2)
 x4 <- x2^2
 hist(x4)
 boxplot(x4)
+
+
