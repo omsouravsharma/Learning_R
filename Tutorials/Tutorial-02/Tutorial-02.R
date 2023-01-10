@@ -3,12 +3,29 @@
 # Download R 
 # Download R Studio
 
+
+
+
+
+
+
+
 # 2. R Studio overview 
 
 # Environment Panel
 # File, Plot and Help Panel
 # Console Panel 
 # Script Panel
+
+
+
+
+
+
+
+
+
+
 
 # 3. Running R code
 # Rscript 
@@ -21,6 +38,11 @@
 # Creating New File 
 # Running Script option
 # Saving file
+
+
+
+
+
 
 
 
@@ -65,7 +87,7 @@ age <- c(28,48,47,71,22,80,48,30,31) # c stand for combine
 age*12
 
 purchase <- c(20, 59, 2, 12, 22, 160, 34, 34, 29)
-
+purchase
 # Combine vector into table 
 
 bookstore <- data.frame(age, purchase)
@@ -87,6 +109,52 @@ x #Everything in R is vector
 
 # Functions
 
+# In built functions
+mean(age)
+
+# Compute the correlation between two variables
+
+cor(age, purchase)
+
+cor(age, purchase, method = "spearman")
+
+# How to get help
+?cor
+
+age
+purchase
+
+
+
+
+
+
+
+
+
+
+
+
+# 5. Mathematical Operations
+
+# Basic Arithmetic operators
+
+abs(0.2)
+sqrt(3)
+log(2)
+2^3
+exp(2)
+sin(2)
+sum(2,4,6,22)
+prod(3,5)
+pi
+10%%3
+factorial(5)
+choose(16, 4)
+?choose
+sqrt(-1)
+1/0
+0/0
 
 
 
