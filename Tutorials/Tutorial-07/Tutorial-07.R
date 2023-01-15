@@ -1,4 +1,4 @@
-# Customising ggplot2 plot
+# Customizing ggplot2 plot
 
 library(ggplot2)
 
@@ -9,7 +9,8 @@ ggplot(msleep, aes(brainwt, sleep_total)) +
   scale_x_log10() + 
   facet_wrap(~vore)
 
-# Modifying with themse
+
+# Modifying with themes
 p <- ggplot(msleep, aes(brainwt, sleep_total, color = vore)) + 
   geom_point() + 
   xlab("Brain weight (logrithmic scale)")  + 
