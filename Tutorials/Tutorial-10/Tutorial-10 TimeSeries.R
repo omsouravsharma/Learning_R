@@ -59,3 +59,69 @@ autoplot(gold)
 #add reference line
 autoplot(gold) + 
   geom_hline(yintercept = 400, color ="red")
+
+
+# Longitudinal data
+
+library(fpp2)
+
+autoplot(elecdaily)
+autoplot(elecdaily, facets = TRUE)
+str(elecdaily)
+autoplot(elecdaily[,1:2], facets = TRUE)+
+  geom_smooth()
+
+
+#Path plot
+ggplot(as.data.frame(elecdaily), aes(Temperature, Demand))+
+  geom_point()+
+  geom_path()
+
+#Add day of the year to the data frame. 
+
+elecdaily2 <- as.data.frame(elecdaily)
+elecdaily2$day <- 1:nrow(elecdaily2)
+
+ggplot((elecdaily2), aes(Temperature, Demand, color = day))+
+  geom_point(size=0.5)+
+  geom_path()
+
+lowest_temp <- which.min(elecdaily2$Temperature)
+highest_temp <- which.max(elecdaily2$Temperature)
+
+ggplot(elecdaily2, aes(Temperature, Demand, color = day))+
+  geom_point(size=0.5)+
+  geom_path()+
+  annotate(geom = "text", x = elecdaily2$Temperature[lowest_temp], 
+           y = elecdaily2$Demand[lowest_temp]+4, 
+           label = elecdaily2$day[lowest_temp])+
+  annotate(geom = "text", x = elecdaily2$Temperature[highest_temp], 
+           y = elecdaily2$Demand[highest_temp]+4, 
+           label = elecdaily2$day[highest_temp])
+
+
+#Spaghetti plot
+library(nlme)
+ggplot(Oxboys, aes(age, height, group =Subject))+
+  geom_point()+
+  geom_line()
+
+# group specifies that their should be one line per subject rather than a single line interpolating all points. 
+ggplot(Oxboys, aes(age, height, group = Subject, color = Subject))+
+  geom_point()+
+  geom_line() #boy are ordered by height. 
+
+#Trend line
+ggplot(Oxboys, aes(age, height, color = Subject))+
+  geom_point()+
+  geom_line(aes(group=Subject))+ #boy are ordered by height.
+  geom_smooth(method = "lm", color = "red", se= F)
+
+# Seasonal plot and decomposition 
+
+library(forecast)
+ggseasonplot(a10) # useful for visually inspecting seasonal pattern 
+
+ggseasonplot(a10, year.labels = TRUE, year.labels.left = TRUE)
+
+
