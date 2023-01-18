@@ -8,9 +8,9 @@ library(fpp2)
 ?a10
 str(a10)
 
-#LOESS - LOcally Estimated Scatterplot Smooting, is a non-parametric regression method that fits a ploynomial to local areas of the data. 
+# LOESS - LOcally Estimated Scatterplot Smooting, is a non-parametric regression method that fits a ploynomial to local areas of the data. 
 
-# GAM - Genralized Additive Model - is a genarlises linear odel where the response variable is a linear function of smooth function of the predicators
+# GAM - Genralized Additive Model - is a genarlises linear model where the response variable is a linear function of smooth function of the predicators
 
 # convert data to data.frame for ggplot2
 a10_df = data.frame(time = time(a10), sales = a10)
@@ -24,13 +24,12 @@ ggplot(a10_df, aes(time, sales))+
 
 #autoplot automatically draw the appropriate plot for certain type of data. 
 
-library(forcast)
+library(forecast)
 autoplot(a10)
 
 ?autoplot
 
 autoplot(a10)+
-  geom_smooth(color = "red")+
   xlab("Year")+
   ylab("Sales ($ million)")+
   labs(title = "Autoplot")
@@ -64,7 +63,7 @@ autoplot(gold) +
 # Longitudinal data
 
 library(fpp2)
-
+?elecdaily
 autoplot(elecdaily)
 autoplot(elecdaily, facets = TRUE)
 str(elecdaily)
@@ -122,6 +121,78 @@ ggplot(Oxboys, aes(age, height, color = Subject))+
 library(forecast)
 ggseasonplot(a10) # useful for visually inspecting seasonal pattern 
 
-ggseasonplot(a10, year.labels = TRUE, year.labels.left = TRUE)
+ggseasonplot(a10, year.labels = TRUE, year.labels.left = TRUE)+
+  ylab("Sales ($ million)")+
+  ggtitle("Seasonal plot of anti-diabetic drug sales")
+
+# Decompose the series into seasonal components. 
+
+autoplot(stl(a10, s.window = 365))
+
+#stl(a10, s.window = 365)$time.series[, "remainder"]
+
+library(fma)
+autoplot(writing)+
+  geom_smooth()+
+  ylab("Sales (francs")+
+  ggtitle("Sales of printing and writing paper")
+
+# Seasonalplot
+
+ggseasonplot(writing, year.labels.left = TRUE, year.labels = TRUE)+
+  ylab("Sales (francs")+
+  ggtitle("Sales of printing and writing paper")
+
+#stl decomposition 
+autoplot(stl(writing, s.window = 365))+
+  ggtitle("Sales of printing and writing paper")
 
 
+# Changepoint detection
+
+install.packages(c("changepoint", "ggfortify"))
+
+library(ffp2)
+library(changepoint)
+library(ggfortify)
+
+#Plot the timeseries 
+autoplot(a10)
+
+#remove the seasonal part 
+a10_ns <- a10 - stl(a10, s.window = 365)$time.series[,"seasonal"]
+autoplot(a10_ns)
+
+#plot point where there are change in mean.
+autoplot(cpt.mean(a10_ns))
+
+# change method
+autoplot(cpt.mean(a10_ns, method = "BinSeg"))
+
+# Plot changes where changes are there in variance 
+autoplot(cpt.var(a10_ns))
+
+# Plot where there is change in mean or variance 
+autoplot(cpt.meanvar(a10_ns))
+
+# Checking on different dataset 
+# Plot timeseries
+autoplot(elecdaily[, "Demand"])
+
+# plot where changes are in variance 
+autoplot(cpt.var(elecdaily[, "Demand"]))
+
+# plot where changes are in variance 
+autoplot(cpt.var(elecdaily[, "Temperature"]))
+
+# plot where changes are in variance 
+autoplot(cpt.var(elecdaily[, "Demand"]))
+#We see that the high-variance period coincides with peaks and large oscillations in
+#temperature, which would cause the energy demand to increase and decrease more
+#than usual, making the variance greater.
+
+
+# Making chart interactive 
+library(plotly)
+myplot <- autoplot(elecdaily[, "Demand"])
+ggplotly(myplot)
