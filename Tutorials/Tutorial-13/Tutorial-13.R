@@ -10,7 +10,7 @@ clsuter_agnes <- agnes(votes.repub)
 
 plot(clsuter_agnes, which = 2) #called dendogram
 
-# agnes function provide two metric Euclidean (default) and manhattan distance and different
+# agnes function provide two metric Euclidean (default) and Manhattan distance and different
 # measuring methods average(default), single, complete, ward
 
 # Use scale to standardized your data
@@ -52,13 +52,13 @@ library(ggplot2)
 library(dendextend)
 
 votes.repub %>% scale() %>%
-  agnes(metric = "manhattan", method = "complete") %>%
-  plot(which = 2) -> cluster_agnes
+  agnes()-> cluster_agnes
 
 votes.repub %>% 
   scale() %>%
-  diana() %>%
-  plot(which = 2) -> cluster_diana
+  diana()-> cluster_diana
+
+tanglegram(as.dendrogram(cluster_agnes), as.dendrogram(cluster_diana))
 
 # Cutting cluster 
 
@@ -89,6 +89,10 @@ votes.repub %>%
 votes.repub %>%
   as.matrix() %>%
   heatmap(scale = "row")
+
+votes.repub %>%
+  as.matrix() %>%
+  heatmap(scale = "col")
 
 library(RColorBrewer)
 
