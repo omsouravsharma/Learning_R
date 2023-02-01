@@ -28,5 +28,5 @@ scree(attitude, pc = FALSE)
 fa.parallel(attitude, fm = "ml", fa = "fa")
 
 
-# Latent class analysis
+
 
