@@ -58,3 +58,73 @@ temps
 unlist(temps)
 
 # Working with Number
+
+# Rounding 
+
+a <- c(2.554, 2.523, 6.32,4.24 )
+round(a, 2)
+
+signif(a,3)
+
+ceiling(a)
+
+floor(a)
+
+trunc(a)
+
+
+# Sum and mean in data frame 
+
+bookstore <- data.frame(purchase1 = c(20,29,2,12,22,160, 34,34,29), 
+                        purchase2 = c(14,67,9,20,20,81,19,55,8), 
+                        purchase3 = c(4,62,11,18,33,57,24,49,29))
+bookstore
+colSums(bookstore)
+rowSums(bookstore)
+
+colMeans(bookstore)
+rowMeans(bookstore)
+
+
+# Summaries of series of numbers 
+
+library(fpp2)
+a10
+a10[7:18] # sales of 1992
+
+cumsum(a10[7:18])
+
+cummax(a10[7:18])
+cummin(a10[7:18])
+
+# Lowest monthly sales 
+# plot total sales up to and include each month
+
+plot(1:12, cumsum(a10[7:18]), 
+     xlab = "Month", 
+     ylab = "Totoal Sales", 
+     type = "b")
+
+# format scientific notoation 
+
+format(7000000, scientific = FALSE)
+format(7000000, scientific = TRUE)
+
+1/3
+
+1.5-0.2 == 1.3
+1.1-0.2 == 0.9
+
+sprintf("%.30f", 1.1-0.2)
+sprintf("%.30f", 1.5-0.2)
+sprintf("%.30f", 1.3)
+
+
+all.equal(1.1-0.2, 0.9) # near equality
+
+all.equal(1,2)
+isTRUE(all.equal(1,2))
+?all.equal
+
+
+# Working with factor 
