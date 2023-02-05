@@ -128,3 +128,41 @@ isTRUE(all.equal(1,2))
 
 
 # Working with factor 
+
+smoke <- c("Never", "Never","Heavy","Never" ,"Occassionally", 
+           "Never", "Never", "Regularly", "Regularly", "No")
+
+table(smoke)
+
+# Creating factor
+smoke2 <- factor(smoke)
+smoke2
+
+levels(smoke2)
+
+smoke2 <- factor(smoke, levels = c("Never", "Occassionally", "Regularly", "Heavy"), ordered = T)
+smoke2
+
+levels(smoke2)
+table(smoke2)
+
+# To check the NA
+
+smoke[which(is.na(smoke2))]
+
+# Changing the factor level 
+
+smoke2 <- addNA(smoke2)
+smoke2
+
+levels(smoke2)[5]<- "Invalid answer"
+
+# combining levels 
+
+levels(smoke2)[2:4] <- "Yes"
+levels(smoke2)
+smoke2
+
+# working with strings 
+
+
