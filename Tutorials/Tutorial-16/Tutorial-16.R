@@ -165,4 +165,27 @@ smoke2
 
 # working with strings 
 
+text1 <- "An example of string. Isn't this is great"
+text1
+text2 <- 'An example of so called "string"'
+text2
 
+text3 <- "Text..\n\tWith indented text on a new line!"
+text3
+cat(text3)
+
+# Concatenating string
+
+first <- "This is first"
+second <- "and this is end"
+
+cat(first, second)
+cat(first, second, sep = "\n")
+
+# Upper and lower case
+
+my_string <- "SOMETIMES I SCREAM (and sometime I whisper)"
+toupper(my_string)
+tolower(my_string)
+
+# Working with dates
