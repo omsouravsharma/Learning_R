@@ -189,3 +189,39 @@ toupper(my_string)
 tolower(my_string)
 
 # Working with dates
+
+#YYYY-MM-DD
+
+# Date Format 
+
+as.Date("2020-04-01")
+as.Date("2020-04-01", format = "%Y-%m-%d")
+as.Date("4-1-20", format = "%m-%d-%y")
+
+# To find which language is in your locale
+Sys.getlocale("LC_TIME")
+
+dates <- as.Date(c("2020-04-01", "2021-12-21", "2023-09-22"), format = "%Y-%m-%d")
+# Extract day of the date
+strftime(dates, format = "%d")
+
+# Extract month of the date
+strftime(dates, format = "%m")
+
+# Extract year of the date
+strftime(dates, format = "%Y")
+
+# Plotting with dates
+library(plotly)
+library(fpp2)
+
+myplot<- autoplot(elecdaily[, "Demand"])
+ggplotly(myplot) # Dates looks odd
+
+## Create a sequence of dates ranging 2014-01 to 12
+
+elecdaily2 <- as.data.frame(elecdaily)
+elecdaily2$Date <- seq.Date(as.Date("2014-01-01"), as.Date("2014-12-31"), by = "day")
+myplot <- ggplot(elecdaily2,aes(Date, Demand))+
+  geom_line()
+ggplotly(myplot)
