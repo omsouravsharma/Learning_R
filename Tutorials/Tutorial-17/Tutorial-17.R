@@ -27,3 +27,11 @@ aq %>%
 aq
 
 # Removing a variable. 
+aq[, HotDay:=NULL]
+# Multiple columns at once
+
+aq %>%
+  select(-Month, -Day) ->aq
+aq
+
+#Recording factor level
