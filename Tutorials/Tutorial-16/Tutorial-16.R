@@ -105,15 +105,15 @@ plot(1:12, cumsum(a10[7:18]),
      ylab = "Totoal Sales", 
      type = "b")
 
-# format scientific notoation 
+# format scientific notation 
 
 format(7000000, scientific = FALSE)
 format(7000000, scientific = TRUE)
 
 1/3
 
-1.5-0.2 == 1.3
-1.1-0.2 == 0.9
+1.5-0.2 == 1.3 # S
+1.1-0.2 == 0.9 # F
 
 sprintf("%.30f", 1.1-0.2)
 sprintf("%.30f", 1.5-0.2)
@@ -212,6 +212,8 @@ strftime(dates, format = "%m")
 strftime(dates, format = "%Y")
 
 # Plotting with dates
+library(ggplot2)
+
 library(plotly)
 library(fpp2)
 

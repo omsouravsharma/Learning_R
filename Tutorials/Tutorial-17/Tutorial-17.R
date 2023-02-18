@@ -58,7 +58,7 @@ smoke3
 
 aq <-  data.table(airquality)
 
-# Calcuate mean
+# Calculate mean
 
 aq[, mean(Ozone), Month]
 
@@ -66,4 +66,4 @@ aq %>%
   group_by(Month)%>%
   summarise(meanTemp = mean(Ozone))
 
-# Sub-setting: Select Columns 
+
