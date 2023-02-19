@@ -1,6 +1,8 @@
 # Data Manipulation with data.table, dplyr, and tidyr
 # data.table, dplyr, tidyr
 
+??tidyr
+
 install.packages(c("dplyr", "tidyr", "data.table"))
 # Syntax basic
 # [i = row, j = column, by = groups]
@@ -8,7 +10,7 @@ library(data.table)
 library(dplyr)
 
 aq <- as.data.table(airquality)
-
+aq
 # change wind speed to m/s instead of mph
 
 aq[, Wind:=Wind*0.44704]
@@ -19,6 +21,7 @@ aq%>% mutate(Wind = Wind*0.44704) -> aq
 
 aq %>%
   mutate(Hot = Temp>90)-> aq
+?mutate
 aq
 
 # Renaming a variable 
@@ -62,6 +65,7 @@ aq <-  data.table(airquality)
 
 aq[, mean(Ozone), Month]
 
+aq
 aq %>%
   group_by(Month)%>%
   summarise(meanTemp = mean(Ozone))
