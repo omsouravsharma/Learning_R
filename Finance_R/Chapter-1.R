@@ -49,4 +49,21 @@ plot(data$Close)
 
 summary(data)
 
-# Pg 28
+# Checking Dimension
+dim(data)
+
+#First row
+data[1,]
+
+# First and last row
+
+data[c(1, nrow(data)),]
+
+# Keeping close column 
+
+data[, 4]
+
+data[1, c(4:5)]
+
+# Subsetting using dates
+
