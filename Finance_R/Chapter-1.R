@@ -13,6 +13,7 @@ head(data)
 
 class(data$Date)
 
+
 Pg -23
 plot(data$Close)
 
@@ -65,5 +66,16 @@ data[, 4]
 
 data[1, c(4:5)]
 
-# Subsetting using dates
+# Sub-setting using dates
 
+class(data)
+TCS2012<- subset(data[,4], 
+  index(data)>="2012-01-01" & index(data)<="2012-12-31")
+TCS2012
+
+# Convert to Dataframe
+
+TCS2012 <- cbind(index(data), data.frame(data[,4]))
+TCS2012[c(1:3, nrow(TCS2012)), ]
+
+PG 39
