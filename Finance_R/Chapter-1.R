@@ -2,7 +2,7 @@
 
 # Import Data
 data = read.csv("C:/Users/NEXT/Desktop/Learning_R/Data/TCS.NS.csv", header = TRUE)
-View(data) # View Data
+#View(data) # View Data
 
 # Convert the date variable from Character to a Date
 class(data$Date) 
@@ -14,7 +14,7 @@ head(data)
 class(data$Date)
 
 
-Pg -23
+
 plot(data$Close)
 
 
@@ -78,4 +78,35 @@ TCS2012
 TCS2012 <- cbind(index(data), data.frame(data[,4]))
 TCS2012[c(1:3, nrow(TCS2012)), ]
 
-PG 39
+# Converting Daily Price to Weekly. 
+class(data)
+wk <- data
+wk
+
+data.weekly <- to.weekly(wk) #XTS
+data.weekly
+
+# Converting data to monthly
+
+mo<-data
+data.monthly <- to.monthly(mo)
+data.monthly
+
+
+# Plotting a Candlestick Chat Using Monthly Data:
+
+library(quantmod)
+# Need to convert data into OHLC Open-High-Low-Close
+
+OHLC <-data.monthly[-1,-6]
+TCS.OHLC <- as.quantmod.OHLC(OHLC, col.names = c("Open", "High", "Low", "Close", "Volumne"))
+class(TCS.OHLC)
+
+TCS.OHLC
+
+chartSeries(TCS.OHLC, theme = "white.mono", name = "TCS OHLC")
+chartSeries(TCS.OHLC, name = "TCS OHLC")
+
+rm(list = ls())
+
+PG44
