@@ -107,6 +107,6 @@ TCS.OHLC
 chartSeries(TCS.OHLC, theme = "white.mono", name = "TCS OHLC")
 chartSeries(TCS.OHLC, name = "TCS OHLC")
 
-rm(list = ls())
 
-PG44
+
+
