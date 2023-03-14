@@ -21,7 +21,7 @@ data.ret <- as.xts(data.ret, order.by = data.ret$Dates)
 data.ret <- data.ret[,2:5]
 data.ret
 class(data.ret)
-# Calcuate the returns
+# Calculate the returns
 
 rets <- lapply(data.ret, Delt)
 rets
@@ -36,3 +36,7 @@ names(rets)<- paste(c("ICICI", "INFY","RELS","TATAC"))
 rets
 
 # Calculate the weighted of portfolio 
+
+
+
+
