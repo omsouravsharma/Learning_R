@@ -36,7 +36,22 @@ names(rets)<- paste(c("ICICI", "INFY","RELS","TATAC"))
 rets
 
 # Calculate the weighted of portfolio 
+i.REL<-50000
+i.ICICI <-30000
+i.INFY<- 10000
+i.TATAC <- 10000
 
+w.ICICI<- i.ICICI/(i.REL+i.ICICI+i.INFY+i.TATAC)
+w.ICICI
+w.INFY<- i.INFY/(i.REL+i.ICICI+i.INFY+i.TATAC)
+w.INFY
+w.TATAC<- i.TATAC/(i.REL+i.ICICI+i.INFY+i.TATAC)
+w.TATAC
 
+# Calculate portfolio return
 
+port.ret <-w.REL*rets$RELS +w.ICICI*rets$ICICI + w.INFY*rets$INFY+
+  w.TATAC*rets$TATAC
+port.ret
 
+# 107%
