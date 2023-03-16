@@ -1,4 +1,4 @@
-# Constructing Portfoilio Return (Long Way)
+# Constructing Portfolio Return (Long Way)
 # Weighted average return of the individual securities. 
 
 # w1 ∗ r1 + w2 ∗ r2
@@ -55,3 +55,18 @@ port.ret <-w.REL*rets$RELS +w.ICICI*rets$ICICI + w.INFY*rets$INFY+
 port.ret
 
 # 107%
+
+# Constructing Portfolio Returns (Matrix Algebra)
+
+wgt <- c(0.5, 0.3,0.1,0.1)
+mat.wgt <- matrix(wgt, 1)
+mat.wgt
+
+ret <- c(rets$RELS, rets$ICICI, rets$INFY, rets$TATAC)
+mat.ret<- matrix(ret,4)
+mat.ret
+
+port.ret<- mat.wgt%*%mat.ret
+port.ret
+
+
