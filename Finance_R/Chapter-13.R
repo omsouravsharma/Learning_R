@@ -98,7 +98,7 @@ head(multi.df)
 plot(multi.df$Date, 
      xlab = "Date",
      y = multi.df$DABUR.idx, 
-     ylim = range(multi.df[,6:9]), 
+     #  ylim = range(multi.df[,6:9]), 
      ylab = "Value of 1 INR", 
      type = "l",
      col = "red", 
