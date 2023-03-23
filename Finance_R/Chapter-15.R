@@ -1,4 +1,4 @@
-# Two Asset (Matrix Algebra)
+# Multiple Asset (Matrix Algebra)
 # Create Vector of Weights
 
 WGT.2asset <- c(0.25,0.75)
