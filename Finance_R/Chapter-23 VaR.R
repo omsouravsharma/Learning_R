@@ -1,6 +1,5 @@
-
-# Multiple asset portfolio 
-#REL #ICICI #BHARTI #INFY
+# VAR - Value at Risk
+# Historical VaR - Follow normal distribution
 
 # Libraries 
 library(xts)
@@ -39,49 +38,57 @@ names(ret.data) <- paste(c("REL","ICICI","AIRTEL","INFY"))
 
 ret.data[c(1:3, nrow(ret.data))]
 
-multi <- data.RELIANCE[,4]
-multi<-merge(multi,data.ICICIBANK[,4])
-multi<-merge(multi,data.AIRTEL[,4])
-multi<-merge(multi,data.INFY[,4])
-head(multi)
+data.RELIANCE[nrow(data.RELIANCE),4]
+data.ICICIBANK[nrow(data.ICICIBANK),4]
+data.AIRTEL[nrow(data.AIRTEL),4]
+data.INFY[nrow(data.INFY),4]
 
-#Calculate the return of each Security. 
+last.idx <- c(0.2331,0.8770,0.749,0.1427)*100000
+last.idx <- c(30000+30000*0.043,
+              30000+30000*0.3084,
+              20000+20000*0.0072,
+              20000+20000*0.0320)
+last.idx
+port.val <- sum(last.idx)
+port.val
 
-mat.price <- matrix(multi, nrow(multi))
-prc2ret <- function(x) Delt(x)
+# Calculate Simulated portfolio Returns Applying current portfolio weights to historical security returns
 
-mat.ret <- apply(mat.price,2, function(x){prc2ret(c(x))})
-mat.ret[1:4,]
+sim.portPnL<-last.idx[1]*ret.data$REL
+   last.idx[2]*ret.data$ICICI+
+   last.idx[3]*ret.data$AIRTEL +
+     last.idx[4]*ret.data$INFY
+  
+sim.portPnL[c(1:3, nrow(sim.portPnL)),]
 
-mat.ret <- mat.ret[-1,]
-mat.ret[1:4,]
+names(sim.portPnL) <- paste("Port.PnL")
 
-colnames(mat.ret) <- c("REL","ICICI","AIRTEL","INFY")
-mat.ret[1:4,]
+# Calculate the Appropriate Quantile for the 1 and 5% VaR
 
-#Calculate Ammualized Variance-Covariance Matrix
+VaR01.Historical=quantile(-sim.portPnL$Port.PnL,0.99)
+VaR01.Historical<-format(VaR01.Historical,big.mark=',')
+VaR01.Historical
+  
 
-VCOV <- cov(mat.ret)
-VCOV
+VaR05.Historical=quantile(-sim.portPnL$Port.PnL,0.95)
+VaR05.Historical<-format(VaR05.Historical,big.mark=',')
+VaR05.Historical 
 
-#Annualized the VCOV
-VCOV.annual <- 252*VCOV 
-VCOV.annual
+# PnL density 
+ret.d = density(sim.portPnL$Port.PnL)
+ret.d
 
-wgt <- c(.2,.2,.3,.3)
-mat.wgt <-matrix(wgt,1)
-mat.wgt
+#plot
 
-tmat.wgt <- t(mat.wgt)
-tmat.wgt
+plot(ret.d,
+     xlab="Profit & Loss",
+     ylab="",
+    yaxt="n",
+     main="Density of Simulated Portfolio P&L Over Three Years And 1% and 
+    5% 1-Day Historical Value-at-Risk (VaR)")
+abline(v=-quantile(-sim.portPnL$Port.PnL,0.99),col="gray",lty=1)
+abline(v=-quantile(-sim.portPnL$Port.PnL,0.95),col="black",lty=2)
 
-#Calculate the Portfolio Variance 
-port.var <- mat.wgt %*% VCOV.annual %*% tmat.wgt
-port.var[1,1]
 
-#Standard Deviation
-port.sd <- sqrt(port.var)
-port.sd
 
-# VAR - Value at Risk
-# Historical VaR - Follow normal distribution
+
