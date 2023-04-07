@@ -90,5 +90,20 @@ abline(v=-quantile(-sim.portPnL$Port.PnL,0.99),col="gray",lty=1)
 abline(v=-quantile(-sim.portPnL$Port.PnL,0.95),col="black",lty=2)
 
 
+x <- seq(min(sim.portPnL$Port.PnL), max(sim.portPnL$Port.PnL), length = 1000)
+head(x)
 
+tail(x)
 
+y<-dnorm(x,mean=mean(sim.portPnL$Port.PnL),sd=sd(sim.portPnL$Port.PnL))
+head(y)
+tail(y)
+
+lines(x,y,type="l",col="black",lwd=1,lty=3)
+
+legend("topright",
+        c("Simulated P&L Distribution",
+         "Normal Distribution",
+         "1% 1-Day VaR","5% 1-Day VaR"),
+        col=c("black","black","gray","black"),
+        lty=c(1,3,1,2))
