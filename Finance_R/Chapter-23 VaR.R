@@ -107,3 +107,11 @@ legend("topright",
          "1% 1-Day VaR","5% 1-Day VaR"),
         col=c("black","black","gray","black"),
         lty=c(1,3,1,2))
+
+
+# Expected Shortfall
+
+# Gaussian ES and Historical ES is used to calculate ES
+
+
+# Alternative Risk Measure. PG 163
