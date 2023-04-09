@@ -114,4 +114,55 @@ legend("topright",
 # Gaussian ES and Historical ES is used to calculate ES
 
 
-# Alternative Risk Measure. PG 163
+# Alternative Risk Measure. 
+
+# Parkinson. 
+
+parkinson <- data.RELIANCE[, 2:3]
+parkinson
+
+
+# Calculate the terms in the Parkinson formula. 
+
+parkinson$log.hi.low <- log(parkinson$RELIANCE.HIGH/parkinson$RELIANCE.LOW)
+parkinson$log.square <- (parkinson$log.hi.low)**2
+
+parkinson[c(1:3, nrow(parkinson)),]
+
+parkinson.sum <- sum(parkinson$log.square)
+parkinson.sum
+
+# Calculate the daily Parkinson Volatility Measure 
+
+parkinson.vol <-sqrt(1/(4*nrow(parkinson)*log(2))*parkinson.sum)
+parkinson.vol
+
+# Calculate the Annualized Parkinson Volatility
+annual.parkinson.vol<-parkinson.vol*sqrt(252)
+annual.parkinson.vol
+
+
+# Garman-Klass
+
+garman.klass <- data.RELIANCE[,1:4]
+
+# Calculate the first term
+garman.klass.one <- (1/(2*nrow(garman.klass)))*parkinson.sum
+garman.klass.one
+
+# Second term 
+garman.klass.two <- ((2*log(2)-1)/nrow(garman.klass))*sum(log(garman.klass$RELIANCE.CLOSE/garman.klass$RELIANCE.OPEN)**2)
+garman.klass.two
+
+#Volatility 
+
+garman.klass.vol<-sqrt(garman.klass.one-garman.klass.two)
+garman.klass.vol
+
+# Annualized the volatility 
+
+annual.garman.klass.vol<-garman.klass.vol*sqrt(252)
+annual.garman.klass.vol
+
+# Other Risk measure are # Roger, Satchell, and Yoon # Yang and Zang 
+
