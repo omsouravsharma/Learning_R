@@ -11,6 +11,7 @@ library(xts)
 library(quantmod)
 library(ggplot2)
 library(plotly)
+library(zoo)
 
 
 result <- function(STOCK_TICK){
@@ -32,13 +33,38 @@ data.NIFTY <- result("NSE")
 
 REL <- data.RELIANCE[,4]
 NIFTY <- data.NIFTY[,4]
-dim(REL)
-dim(NIFTY)
+# dim(REL)
+# dim(NIFTY)
+# as.numeric(REL)
+# a = as.numeric(NIFTY)
+# count(is.na(a))
+# which(is.na(a))
+# NIFTY[c(which(is.na(NIFTY)))]
+# df <- merge(REL, NIFTY)
+
+
 rets <- diff(log(REL))
-rets$NIFTY<- diff(log(as.double(NIFTY)))
+rets$NIFTY<- diff(log(NIFTY))
 
-class(NIFTY)
-b<- as.numeric(NIFTY)
-dim(b)
 names(rets)[1] <- "REL"
+rets <- rets[-1,]
+rets[c(1:3, nrow(rets)),]
 
+#Create a rolling Window Regression Functions
+coeffs <- rollapply(rets, width = 251, FUN = function(X){
+  roll.reg = lm(REL~NIFTY, data = as.data.frame(X))
+  return(roll.reg$coef)
+},
+by.column = FALSE)
+
+coeffs<-rollapply(rets,
+                     width=252,
+                    FUN=function(X)
+                       {
+                         roll.reg=lm(REL~NIFTY,
+                                       data=as.data.frame(X))
+                         return(roll.reg$coef)
+                         },
+                     by.column=FALSE)
+
+#Learn about rollapply function
