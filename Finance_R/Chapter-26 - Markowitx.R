@@ -34,4 +34,4 @@ fig <- plot_ly(data = df,
 fig
 
 # Calculate simple return
-https://rstudio-pubs-static.s3.amazonaws.com/78839_afca73ae18194eaf8f1b86d399dde969.html
+
