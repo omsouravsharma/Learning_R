@@ -23,30 +23,28 @@ result <- function(STOCK_TICK){
 
 data.VBL <- result("VBL")
 
-data.VBL
+data.VBL_raw <- read.csv("C:/Users/NEXT/Desktop/Learning_R/Data/stock/VBL.NS.csv", sep = ',', header = TRUE)
+data.VBL_raw$Date <-as.Date(data.VBL_raw$Date, format = "%Y-%m-%d")
+# data.VBL_raw$Date <- data.VBL_raw[order(data.VBL_raw$Date), ]
+# data.VBL_raw <- data.VBL_raw[order(data.VBL_raw$Date), ]
+# 
+# data.VBL_raw<- as.xts(data.VBL_raw[, 2:7], order.by = data.VBL_raw$Date)
 
-data.VBL$VBL.CLOSE |>
-  autoplot()
+data.VBL_raw
 
+class(data.VBL_raw)
 
-# Convert xts to tibble data object
-t_VBL <- data.VBL %>% fortify.zoo %>% as_tibble
-t_VBL
-t_VBL <- as_tsibble(t_VBL, key = VBL.CLOSE, index = Index)
-t_VBL
+ts_vbl<- as_tsibble(data.VBL_raw, index = Date, regular = TRUE)
+ts_vbl
 
-t_VBL|>
-  gg_season(VBL.CLOSE)+geom_line()
+#auto-plot
+ts_vbl|>
+  autoplot(Close)
 
-class(t_VBL)
+#filling gaps with the previous value. 
+ts_vbl|>
+  tsibble::fill_gaps()|>
+  fill(Open,High, Low, Close, Adj.Close, Volume, .direction = "down")->ts_vbl
 
-library(tsibble)
-library(dplyr)
-tsibbledata::aus_retail %>%
-  filter(
-    State == "Victoria",
-    Industry == "Cafes, restaurants and catering services"
-  ) %>%
-  gg_season(Turnover)
-
-aus_retail
+gg_season(ts_vbl)
+  
