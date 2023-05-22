@@ -46,5 +46,13 @@ ts_vbl|>
   tsibble::fill_gaps()|>
   fill(Open,High, Low, Close, Adj.Close, Volume, .direction = "down")->ts_vbl
 
-gg_season(ts_vbl)
+gg_season(ts_vbl, y = Close, period = 31)
+# gg_subseries(ts_vbl)  
+
+?gg_season
+
+https://www.rpubs.com/AurelliaChristie/time-series-and-stock-analysis
+https://anomaly.io/seasonal-trend-decomposition-in-r/index.html
+
   
+
