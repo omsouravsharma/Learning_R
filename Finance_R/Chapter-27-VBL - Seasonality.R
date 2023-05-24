@@ -50,9 +50,38 @@ gg_season(ts_vbl, y = Close, period = 31)
 # gg_subseries(ts_vbl)  
 
 ?gg_season
+# 
+# https://www.rpubs.com/AurelliaChristie/time-series-and-stock-analysis
+# https://anomaly.io/seasonal-trend-decomposition-in-r/index.html
+# 
+#   
 
-https://www.rpubs.com/AurelliaChristie/time-series-and-stock-analysis
-https://anomaly.io/seasonal-trend-decomposition-in-r/index.html
+# Check seasonality in NIFTY 
 
-  
 
+
+NIFTY_MON <- read.csv("C:/Users/NEXT/Desktop/Learning_R/Data/stock/NSE_MONTHLY.NS.csv", sep = ',', header = TRUE)
+NIFTY_MON$Date <-as.Date(NIFTY_MON$Date, format = "%Y-%m-%d")
+NIFTY_MON
+
+class(NIFTY_MON)
+
+ts_NIFTY_MON<- as_tsibble(NIFTY_MON, index = Date, regular = TRUE)
+ts_NIFTY_MON
+
+#auto-plot
+ts_NIFTY_MON|>
+  autoplot(Close)
+
+#filling gaps with the previous value. 
+ts_NIFTY_MON|>
+  tsibble::fill_gaps()|>
+  fill(Open,High, Low, Close, Adj.Close, Volume, .direction = "down")->ts_NIFTY_MON
+
+gg_season(ts_NIFTY_MON, y = Close, facet_period = 30)
+gg_subseries(ts_NIFTY_MON, y = Close)  
+
+library(tsibble)
+library(dplyr)
+ts_NIFTY_MON %>%
+  gg_season(Close)
